@@ -76,6 +76,7 @@ game::game(QString musicname)
     connect(showtime,&QTimer::timeout,[=](){
         emit this->showyinfu();
     });
+    connect(this,&game::gameOver,showtime,&QTimer::stop);
     music=new QSoundEffect(this);
     music->setSource(QUrl::fromLocalFile(musicname));
     dian=new QSoundEffect(this);
@@ -133,6 +134,15 @@ game::game(QString musicname)
     connect(this,&game::showyinfu,[=](){
         this->generateDownObject();
     });
+    jieshu=new QPushButton(this);
+    jieshu->setText("结束游戏");
+    jieshu->resize(80,20);
+    jieshu->move(800,40);
+    jieshu->setStyleSheet("QPushButton{border: none;font-family:'楷体';font-size:20px;color:rgb(84,150,136)}");
+    connect(jieshu,&QPushButton::clicked,[=](){
+        emit gameOver();
+    });
+
 }
 void game::paintEvent(QPaintEvent *event)
 {

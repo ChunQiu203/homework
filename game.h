@@ -24,6 +24,7 @@ public:
     QSoundEffect*music;
     QSoundEffect* dian;
     QSoundEffect* ba;
+    QPushButton* jieshu;
     teach* te;
     adjust* ad;
     QTimer* maintime;//音符移动时钟

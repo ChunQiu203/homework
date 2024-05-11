@@ -30,7 +30,8 @@ public:
     QThread*mainThread;
     void connectMainWindow(choosemusic*c);
     void connectChooseWindow(choosemusic*c);
-    void connectSonWindow(sonwindow*choose);
+    void connectSonWindow(sonwindow*choose,QMainWindow*parent);
+    void connectSonWindow(sonwindow*choose,gameover*parent,game*music1);
     void connectGameOver(game*music1,gameover*over,choosemusic*c,int score);
     QPushButton * btn;//开始
     QPushButton * btn2;//退出

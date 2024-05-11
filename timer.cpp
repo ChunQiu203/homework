@@ -14,19 +14,12 @@ Timer::Timer(QObject*parent)
 }
 void Timer::startN(int msec)
 {
-    //this->setParent(nullptr);
-    //m_thread->start();
-    //this->moveToThread(m_thread);
     this->start(msec);
     connect(this, &Timer::timeout,[=](){
         emit this->timerTimeout();
     });
-
 }
 void Timer::stopN()
 {
-    //this->setParent(nullptr);
-    //m_thread->start();
-    //this->moveToThread(m_thread);
     this->stop();
 }

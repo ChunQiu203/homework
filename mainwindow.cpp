@@ -154,7 +154,7 @@ void MainWindow::connectMainWindow(choosemusic*c)
     connect(btn2,&QPushButton::clicked,[=](){
         push->play();
         sonwindow*choose=new sonwindow(this);
-        connectSonWindow(choose);
+        connectSonWindow(choose,this);
         QTimer::singleShot(400,choose,[=](){
 
         });
@@ -169,23 +169,42 @@ void MainWindow::connectMainWindow(choosemusic*c)
     });
 }
 //选择界面
-void MainWindow::connectSonWindow(sonwindow*choose)
+void MainWindow::connectSonWindow(sonwindow*choose,QMainWindow*parent)
 {
     //选择界面，按钮信号的处理
     choose->move(700,400);
     connect(choose->queren,&QPushButton::clicked,[=](){
         push->play();
-        QTimer::singleShot(600,this,[=](){
-            this->close();
+        QTimer::singleShot(600,parent,[=](){
+            parent->close();
         });
     });
     connect(choose->quxiao,&QPushButton::clicked,[=](){
         push->play();
-        QTimer::singleShot(400,this,[=](){
+        QTimer::singleShot(400,parent,[=](){
             choose->deleteLater();
         });
     });
     choose->show();
+}
+void MainWindow::connectSonWindow(sonwindow*choose,gameover*parent,game*music1)
+{
+    //选择界面，按钮信号的处理
+    choose->move(700,400);
+    choose->show();
+    connect(choose->queren,&QPushButton::clicked,[=](){
+        push->play();
+        QTimer::singleShot(600,parent,[=](){
+            parent->deleteLater();
+        });
+        music1->deleteLater();
+    });
+    connect(choose->quxiao,&QPushButton::clicked,[=](){
+        push->play();
+        QTimer::singleShot(400,parent,[=](){
+            choose->deleteLater();
+        });
+    });
 }
 
 //选曲界面
@@ -244,5 +263,14 @@ void MainWindow::connectGameOver(game*music1,gameover*over,choosemusic*c,int sco
         music->show();
         emit music->showScene();
         over->deleteLater();
+    });
+    connect(over,&gameover::TuiChu,[=](){
+        sonwindow*choose=new sonwindow(over);
+        connectSonWindow(choose,over,music1);
+        // over->deleteLater();
+        choose->show();
+        // QTimer::singleShot(600,music1,[=](){
+        //     music1->deleteLater();
+        // });
     });
 }

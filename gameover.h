@@ -23,6 +23,7 @@ private:
 signals:
     void Back();
     void Restart();
+    void TuiChu();
 };
 
 #endif // GAMEOVER_H

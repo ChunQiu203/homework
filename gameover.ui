@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="chongxin">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>220</y>
+     <x>20</x>
+     <y>180</y>
      <width>80</width>
      <height>18</height>
     </rect>
@@ -29,8 +29,8 @@
   <widget class="QPushButton" name="FanHui">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>220</y>
+     <x>150</x>
+     <y>180</y>
      <width>80</width>
      <height>18</height>
     </rect>
@@ -42,8 +42,8 @@
   <widget class="QPushButton" name="OVER">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>80</y>
+     <x>40</x>
+     <y>20</y>
      <width>80</width>
      <height>18</height>
     </rect>
@@ -55,8 +55,8 @@
   <widget class="QPushButton" name="Score">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>160</y>
+     <x>60</x>
+     <y>120</y>
      <width>80</width>
      <height>18</height>
     </rect>
@@ -68,14 +68,27 @@
   <widget class="QPushButton" name="SCORE">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>160</y>
+     <x>210</x>
+     <y>130</y>
      <width>41</width>
      <height>18</height>
     </rect>
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="tuichu">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>180</y>
+     <width>80</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>退出游戏</string>
    </property>
   </widget>
  </widget>

@@ -1,10 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include"sonwindow.h"
-#include <QMainWindow>
-#include"choosemusic.h"
-#include"basescene.h"
 
+#include <QMainWindow>
+#include"game.h"
+#include<QSoundEffect>
+#include"choosemusic.h"
+#include "sonwindow.h"
+#include"gameover.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -18,11 +20,24 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void paintEvent(QPaintEvent *event);//画背景图
+    void paintEvent(QPaintEvent *event);
+    void connectGameWindow(game*music,choosemusic*c);
+    QSoundEffect* background;
+    QSoundEffect*music1;
+    QSoundEffect*b;
+    QSoundEffect*Dragon;
+    QSoundEffect *push;
+    QThread*mainThread;
+    void connectMainWindow(choosemusic*c);
+    void connectChooseWindow(choosemusic*c);
+    void connectSonWindow(sonwindow*choose);
+    void connectGameOver(game*music1,gameover*over,choosemusic*c,int score);
+    QPushButton * btn;//开始
+    QPushButton * btn2;//退出
+    QPushButton *btn3;//选曲
 
 private:
     Ui::MainWindow *ui;
-    sonwindow*choose;
-    choosemusic* c;
+
 };
 #endif // MAINWINDOW_H

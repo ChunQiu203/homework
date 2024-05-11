@@ -2,17 +2,21 @@
 #define CHOOSEMUSIC_H
 
 #include "basescene.h"
+#include"musicchoose.h"
+
 #include<QPushButton>
+#include<QMainWindow>
 class choosemusic : public basescene
 {
     Q_OBJECT
 public:
-    explicit choosemusic(QWidget *parent = nullptr);
+    choosemusic(QWidget *parent);
     QPushButton *fanhui;
+    musicchoose *btn1;
+    QPushButton *btn2;
 signals:
-    //写一个自定义信号，告诉主场景，点击了返回
-    void back();
-    void newmusic();
+    void closed();
+    //void showGame();
 };
 
 #endif // CHOOSEMUSIC_H

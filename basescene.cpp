@@ -1,4 +1,5 @@
 #include "basescene.h"
+
 #include<QPainter>
 #include<QPaintEvent>
 #include<QPixmap>
@@ -6,7 +7,7 @@
 #include<QMenu>
 #include<QAction>
 #include"teach.h"
-#include"adjust1.h"
+#include"adjust.h"
 
 basescene::basescene(QWidget *parent)
     : QMainWindow{parent}
@@ -28,9 +29,9 @@ basescene::basescene(QWidget *parent)
     QAction* open=tiaozheng->addAction("打开");
 
     teach* te=new teach();
-    adjust1* ad=new adjust1();
+    adjust* ad=new adjust();
     connect(study,&QAction::triggered,te,&teach::show);
-    connect(open,&QAction::triggered,ad,&adjust1::show);
+    connect(open,&QAction::triggered,ad,&adjust::show);
 
 }
 void basescene::paintEvent(QPaintEvent *event)
@@ -40,3 +41,4 @@ void basescene::paintEvent(QPaintEvent *event)
     pix.load(":/选曲背景.png");
     painter.drawPixmap(0,0,this->width(),this->height(),pix);
 }
+

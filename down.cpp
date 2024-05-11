@@ -1,6 +1,5 @@
 #include "down.h"
 #include<QTimer>
-
 #include<QOverload>
 #include<QPixmap>
 #include<QDebug>
@@ -13,8 +12,10 @@
 #include<QRandomGenerator>
 #include<QGraphicsItem>
 #include"evaluate.h"
+#include<QDebug>
+#include<QThread>
 using namespace std;
-down::down(QObject*parent) {
+down::down(QObject*parent,int xia) {
     //设定音符点击音效
     QSoundEffect* dian=new QSoundEffect(this);
     dian->setSource(QUrl::fromLocalFile(":/按键音.wav"));
@@ -46,32 +47,34 @@ down::down(QObject*parent) {
     //音符位置要随时间的变化而变化
 
     //位置计时器
-    timer = new QTimer(this);
-    timer->start(10);
+    timer = new Timer(this);
+    timer->setParent(this);
+    emit timer->Start(xia);
+
     //改变音符位置
-    connect(timer,&QTimer::timeout,[=](){
+    connect(timer,&Timer::timerTimeout,[=](){
         this->move(x,++y);
     });
 
     //出现计时器
-    p=new QTimer(this);
+    p=new Timer(this);
+    p->setParent(this);
     p->setSingleShot(true);  //表示只计时一次
-    p->start(15000);
+    emit p->Start(500*xia);
     //判断时间
-    connect(p,&QTimer::timeout,[=](){
+    connect(p,&Timer::timerTimeout,[=](){
         emit down::miss();
     });
-    connect(this,&down::disappear,[=](){
-        self=15000-p->remainingTime();//获取剩余时间
-    });
+
 
     //音符消失
-    //对比剩余时间，一共计时15秒
     //进行评价，在game界面中实现
 
     //点击动画的实现
     connect(this,&down::best,this,[=](){
+        qDebug()<<self;
         this->changeSuccess();
+
     });
     connect(this,&down::good,this,[=](){
         this->changeSuccess();
@@ -96,8 +99,10 @@ void down::changeSuccess()
     this->setStyleSheet("QPushButton{border: none;}");
     this->setIcon(des);
     this->setIconSize(QSize(80,20));
-    QTimer::singleShot(1000,this,[=](){
-        this->deleteLater();
+    emit this->timer->Stop();
+    emit this->p->Stop();
+    QTimer::singleShot(500,this,[=](){
+        this->hide();
     });
 }
 void down::changelose()
@@ -109,8 +114,10 @@ void down::changelose()
     this->setStyleSheet("QPushButton{border: none;}");
     this->setIcon(des);
     this->setIconSize(QSize(80,20));
-    QTimer::singleShot(1000,this,[=](){
-        this->deleteLater();
+    emit this->timer->Stop();
+    emit this->p->Stop();
+    QTimer::singleShot(500,this,[=](){
+        this->hide();
     });
 }
 

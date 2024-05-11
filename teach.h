@@ -2,6 +2,7 @@
 #define TEACH_H
 
 #include <QMainWindow>
+
 namespace Ui {
 class teach;
 }
@@ -12,8 +13,8 @@ class teach : public QMainWindow
 
 public:
     explicit teach(QWidget *parent = nullptr);
-    void paintEvent(QPaintEvent *event);
     ~teach();
+    void paintEvent(QPaintEvent *event);
 
 private:
     Ui::teach *ui;

@@ -2,45 +2,31 @@
 #define GAME_H
 
 #include <QMainWindow>
-#include<QPushButton>
+#include<QString>
 #include<QTimer>
-#include<QList>
-#include"down.h"
-#include"evaluate.h"
-#include<QKeyEvent>
-#include<QSoundEffect>
+#include<QFile>
+#include"click.h"
 class game : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit game(QWidget *parent = nullptr);
-    void paintEvent(QPaintEvent *event);
-    game(QString musicname=":/music/Maozon - Stasis.mp3");
-    QPushButton* fanhui;
+    QString filename;
+    //explicit game(QWidget *parent = nullptr);
+    game(QString musicname);
     QPushButton* restart;
+    QPushButton* fanhui;
     QPushButton* zanting;
-    QSoundEffect*music;
-    QSoundEffect* dian;
-    QSoundEffect* ba;
-    QTimer* maintime;//音符移动时钟
-    QTimer* showtime;//音符出现时钟
-    int a[6]={0,1,2,3,4,5};//统计音符消失数组
-    int s=0;
-    int num=0;//统计按下暂停次数
-    QPushButton *score;
-
-    //void keyPressEvent(QKeyEvent *event);
+    void paintEvent(QPaintEvent *event);
+    friend class click;
+private:
+    QTimer* whole;
+    QFile*music;
+    QFile*display;
 signals:
-    void pause();
-    void renew();
-    void showScene();
     void back();
-    void change();
-    void showyinfu();
-private slots:
-    void generateDownObject();
+    void pause();
+    void over();
+
 };
-
-
 
 #endif // GAME_H

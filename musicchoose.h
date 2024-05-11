@@ -3,7 +3,6 @@
 
 #include <QPushButton>
 #include<QString>
-
 class musicchoose : public QPushButton
 {
 public:
@@ -13,7 +12,6 @@ public:
     QString normalimagepath;
     QString pressimagepath;
     QString music;
-
 };
 
 #endif // MUSICCHOOSE_H

@@ -3,7 +3,7 @@
 #include<QString>
 #include<QDebug>
 #include<QSize>
-
+musicchoose::musicchoose() {}
 musicchoose::musicchoose(QString normalimage,QString pressimage,QString musicname)
 {
     normalimagepath=normalimage;
@@ -19,10 +19,9 @@ musicchoose::musicchoose(QString normalimage,QString pressimage,QString musicnam
     //设置图片大小
     setFixedSize(400,400);
     //设置不规则图片格式
-    setStyleSheet("QPushButton{border: none;}");
+    setStyleSheet("QPushButton(border=0px;)");
     //设置图标
     setIcon(pix);
     //设置图标大小
     setIconSize(QSize(pix.width(),pix.height()));
-
 }

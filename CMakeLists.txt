@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-
-project(tiaoshi VERSION 0.1 LANGUAGES CXX)
+project(excise VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -21,53 +20,63 @@ set(PROJECT_SOURCES
         mainwindow.ui
 )
 
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(tiaoshi
+    qt_add_executable(excise
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        basescene.h basescene.cpp
-        teach.h teach.cpp teach.ui
-        source.qrc
-        adjust.h adjust.cpp adjust.ui
+        sonwindow.h sonwindow.cpp
+        photo.qrc
+
+        click.h click.cpp
+
+
         choosemusic.h choosemusic.cpp
+
         musicchoose.h musicchoose.cpp
         game.h game.cpp
-        sonwindow.h sonwindow.cpp
-        down.h down.cpp
-        evaluate.h evaluate.cpp
-        score.h score.cpp
+
+        basescene.h basescene.cpp
+
+        teach.h teach.cpp teach.ui
+
+
+        adjust1.h adjust1.cpp adjust1.ui
+
+
+
 
 
 
     )
-target_link_libraries(tiaoshi PRIVATE Qt6::Multimedia)
+target_link_libraries(excise PRIVATE Qt6::Multimedia)
 # Define target properties for Android with Qt 6 as:
-#    set_property(TARGET tiaoshi APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#    set_property(TARGET excise APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
-        add_library(tiaoshi SHARED
+        add_library(excise SHARED
             ${PROJECT_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
-        add_executable(tiaoshi
+        add_executable(excise
             ${PROJECT_SOURCES}
         )
     endif()
 endif()
 
-target_link_libraries(tiaoshi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(excise PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
 if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.tiaoshi)
+  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.excise)
 endif()
-set_target_properties(tiaoshi PROPERTIES
+set_target_properties(excise PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -76,12 +85,12 @@ set_target_properties(tiaoshi PROPERTIES
 )
 
 include(GNUInstallDirs)
-install(TARGETS tiaoshi
+install(TARGETS excise
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(tiaoshi)
+    qt_finalize_executable(excise)
 endif()

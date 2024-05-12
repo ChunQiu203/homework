@@ -12,9 +12,8 @@
 #include<QSoundEffect>
 #include<QMainWindow>
 #include"mainwindow.h"
-
 choosemusic::choosemusic(QWidget *parent)
-    :basescene{parent}
+    //:basescene{parent}
 
 {
 
@@ -33,7 +32,4 @@ choosemusic::choosemusic(QWidget *parent)
     btn2->setText(btn1->music);
     btn2->resize(200,40);
     btn2->setStyleSheet("QPushButton{border: none;font-family:'华文楷体';font-size:30px;color:rgb(66,102,102)；font-}");
-
-
-
 }

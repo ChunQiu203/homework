@@ -3,19 +3,16 @@
         <file>按键音.wav</file>
         <file>按键音2.wav</file>
         <file>久石譲Wiener SymphonikerAntoine Tamestit - Viola Saga：Movement 2 (Pt. 1)-new.wav</file>
-        <file>选曲按键.png</file>
-        <file>选曲按键点后.png</file>
         <file>选曲背景.png</file>
         <file>音游？？.png</file>
         <file>music.ico</file>
         <file>Kirara Magic - Dragonflame.wav</file>
         <file>Dragonflame.jpg</file>
         <file>button1.png</file>
-        <file>未命名的设计.png</file>
-        <file>音符消失1.gif</file>
-        <file>背景1.gif</file>
-        <file>背景.gif</file>
-        <file>背景2.gif</file>
-        <file>判定线.png</file>
+        <file>button2.png</file>
+        <file>button3.png</file>
+        <file>音符.wav</file>
+        <file>音符miss.wav</file>
+        <file>判定.png</file>
     </qresource>
 </RCC>

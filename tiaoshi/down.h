@@ -5,25 +5,27 @@
 #include <QPushButton>
 #include<QTime>
 #include<QMovie>
+#include<QKeyEvent>
+#include<QGraphicsItem>
+#include"timer.h"
 class down : public QPushButton
 {
     Q_OBJECT
 public:
-    down(int a,int b);
+    down(QObject*parent,int xia,int Time);
     int self=0;
     //改变标志的方法
     void changeSuccess();
     void changelose();
+    QChar letter;
     int x;
     int y;
-    QTimer *timer;
-    QTimer *t;//点击成功消失的定时器
+    Timer *timer;//改变音符位置的定时器
+    Timer *p;
     int min=1;//最小图片
     int max=8;//最大图片
-    QMovie *mo;
-    QMovie *lo;
-    int flag;//判断是否点击
-
+    int flag=0;//判断是否点击
+    friend class game;
 
 signals:
     void show();

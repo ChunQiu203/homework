@@ -16,6 +16,7 @@ public:
     QPushButton *btn2;
 signals:
     void closed();
+    //void showGame();
 };
 
 #endif // CHOOSEMUSIC_H

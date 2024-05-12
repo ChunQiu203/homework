@@ -3,6 +3,14 @@
 
 #include <QMainWindow>
 #include<QPushButton>
+#include<QTimer>
+#include<QList>
+#include"down.h"
+#include"evaluate.h"
+#include<QKeyEvent>
+#include<QSoundEffect>
+#include"teach.h"
+#include"adjust.h"
 class game : public QMainWindow
 {
     Q_OBJECT
@@ -13,12 +21,30 @@ public:
     QPushButton* fanhui;
     QPushButton* restart;
     QPushButton* zanting;
-    int num=0;
+    QSoundEffect*music;
+    QSoundEffect* dian;
+    QSoundEffect* ba;
+    QPushButton* jieshu;
+    teach* te;
+    adjust* ad;
+    QTimer* maintime;//音符移动时钟
+    QTimer* showtime;//音符出现时钟
+    int a[6]={0,1,2,3,4,5};//统计音符消失数组
+    int s;
+    int num;//统计按下暂停次数
+    QPushButton *score;
 signals:
     void pause();
     void renew();
     void showScene();
     void back();
+    void change();
+    void showyinfu();
+    void gameOver();
+private slots:
+    void generateDownObject();
 };
+
+
 
 #endif // GAME_H

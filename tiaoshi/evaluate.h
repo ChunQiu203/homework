@@ -7,8 +7,12 @@ class evaluate : public QPushButton
 {
     Q_OBJECT
 public:
-    evaluate(QString a);
-
+    evaluate();
+signals:
+    void e1();
+    void e2();
+    void e3();
+    void e4();
 };
 
 #endif // EVALUATE_H

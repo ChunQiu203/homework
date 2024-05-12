@@ -15,10 +15,11 @@ public:
     explicit adjust(QWidget *parent = nullptr);
     ~adjust();
     void paintEvent(QPaintEvent *event);
+private:
     static int xiaSpeed;
     static int chuSpeed;
     static int TimeD;
-    //friend class game;
+    friend class game;
 
 
 private:

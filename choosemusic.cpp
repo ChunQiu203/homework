@@ -13,7 +13,6 @@
 #include<QMainWindow>
 #include"mainwindow.h"
 choosemusic::choosemusic(QWidget *parent)
-
 {
 
     //返回按钮

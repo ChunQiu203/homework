@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     background=new QSoundEffect(this);
     background->setSource(QUrl::fromLocalFile(":/久石譲Wiener SymphonikerAntoine Tamestit - Viola Saga：Movement 2 (Pt. 1)-new.wav"));
     background->setLoopCount(QSoundEffect::Infinite);
-    background->setVolume(0.5f);
+    background->setVolume(0.2f);
     background->play();
     push=new QSoundEffect(this);
     push->setSource(QUrl::fromLocalFile(":/按键音.wav"));
@@ -90,7 +90,6 @@ MainWindow::~MainWindow()
 //链接信号game界面
 void MainWindow::connectGameWindow(game *music,choosemusic*c)
 {
-
     connect(music->restart,&QPushButton::clicked,[=](){
         b->play();
         emit music->renew();

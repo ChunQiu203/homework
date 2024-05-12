@@ -8,7 +8,7 @@ musicchoose::musicchoose(QString normalimage,QString musicname)
     music=musicname;
     m=new QSoundEffect(this);
     m->setSource(QUrl::fromLocalFile(musicname));
-    m->setVolume(0.6f);
+    m->setVolume(0.2f);
     QPixmap pix;
     bool ret=pix.load(normalimagepath);
     if(!ret)

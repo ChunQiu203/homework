@@ -6,7 +6,6 @@ Timer::Timer(QObject*parent)
     //定时任务放在线程中执行，必须指定参数
     connect(this,&Timer::Start,this,&Timer::startN);
     connect(this,&Timer::Stop,this,&Timer::stopN);
-
 }
 void Timer::startN(int msec)
 {

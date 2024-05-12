@@ -1,5 +1,4 @@
 #include "basescene.h"
-
 #include<QPainter>
 #include<QPaintEvent>
 #include<QPixmap>
@@ -8,7 +7,6 @@
 #include<QAction>
 #include"teach.h"
 #include"adjust.h"
-
 basescene::basescene(QWidget *parent)
     : QMainWindow{parent}
 {

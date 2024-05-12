@@ -59,7 +59,6 @@ adjust::adjust(QWidget *parent)
         TimeD=ui->TimeDelaySlider->value();
         ui->TimeDelayNum->setValue(TimeD);
     });
-
 }
 void adjust::paintEvent(QPaintEvent *event)
 {
@@ -68,8 +67,6 @@ void adjust::paintEvent(QPaintEvent *event)
     pix.load(":/选曲背景.png");
     painter.drawPixmap(0, 0, this->width(), this->height(), pix);
 }
-
-
 adjust::~adjust()
 {
     delete ui;

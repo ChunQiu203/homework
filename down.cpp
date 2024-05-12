@@ -105,5 +105,3 @@ void down::changelose()
         this->hide();
     });
 }
-
-

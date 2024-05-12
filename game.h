@@ -27,7 +27,6 @@ private:
     QPushButton* jieshu;
     teach* te;
     adjust* ad;
-    QTimer* maintime;//音符移动时钟
     QTimer* showtime;//音符出现时钟
     int s;
     int num;//统计按下暂停次数

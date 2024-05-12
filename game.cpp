@@ -248,8 +248,10 @@ void game::generateDownObject(){
               //线程
               //QTimer不能跨线程启动和停止定时器
                yinfu->self=yinfu->p->remainingTime();
-               emit yinfu->p->Stop();
-               emit yinfu->timer->Stop();
+              QTimer::singleShot(100,[=](){
+                   emit yinfu->p->Stop();
+                   emit yinfu->timer->Stop();
+               });
           }
          else
          {

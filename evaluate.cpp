@@ -4,7 +4,7 @@
 #include"down.h"
 evaluate::evaluate() {
     this->resize(200,100);
-    this->setStyleSheet("QPushButton{border: none;font-family:'Brush Script MT';font-size:40px;color:rgb(120,146,98)}");
+    this->setStyleSheet("QPushButton{border: none;font-family:'Brush Script MT';font-size:50px;color:rgb(120,146,98)}");
     //连接信号
     connect(this,&evaluate::e1,[=](){
         this->setText("perfect");

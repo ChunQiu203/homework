@@ -9,6 +9,8 @@
 #include"evaluate.h"
 #include<QKeyEvent>
 #include<QSoundEffect>
+#include"teach.h"
+#include"adjust.h"
 class game : public QMainWindow
 {
     Q_OBJECT
@@ -22,14 +24,15 @@ public:
     QSoundEffect*music;
     QSoundEffect* dian;
     QSoundEffect* ba;
+    QPushButton* jieshu;
+    teach* te;
+    adjust* ad;
     QTimer* maintime;//音符移动时钟
     QTimer* showtime;//音符出现时钟
     int a[6]={0,1,2,3,4,5};//统计音符消失数组
-    int s=0;
-    int num=0;//统计按下暂停次数
+    int s;
+    int num;//统计按下暂停次数
     QPushButton *score;
-
-    //void keyPressEvent(QKeyEvent *event);
 signals:
     void pause();
     void renew();
@@ -37,6 +40,7 @@ signals:
     void back();
     void change();
     void showyinfu();
+    void gameOver();
 private slots:
     void generateDownObject();
 };

@@ -36,6 +36,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         down.h down.cpp
         evaluate.h evaluate.cpp
         score.h score.cpp
+        timer.h timer.cpp
+        gameover.h gameover.cpp gameover.ui
+
+
 
 
 

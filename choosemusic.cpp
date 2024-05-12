@@ -12,7 +12,6 @@
 #include<QSoundEffect>
 #include<QMainWindow>
 #include"mainwindow.h"
-
 choosemusic::choosemusic(QWidget *parent)
     //:basescene{parent}
 

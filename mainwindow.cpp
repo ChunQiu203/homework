@@ -25,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     //设置应用图片
     setWindowIcon(QPixmap(":/music.ico"));
 
-
     //按键音效
     background=new QSoundEffect(this);
     background->setSource(QUrl::fromLocalFile(":/久石譲Wiener SymphonikerAntoine Tamestit - Viola Saga：Movement 2 (Pt. 1)-new.wav"));
@@ -34,13 +33,10 @@ MainWindow::MainWindow(QWidget *parent)
     background->play();
     push=new QSoundEffect(this);
     push->setSource(QUrl::fromLocalFile(":/按键音.wav"));
-    push->setVolume(0.9f);
+    push->setVolume(1.0f);
     b=new QSoundEffect(this);
     b->setSource(QUrl::fromLocalFile(":/按键音2.wav"));
     b->setVolume(1.0);
-    music1=new QSoundEffect(this);
-    music1->setSource(QUrl::fromLocalFile(":/按键音2.wav"));
-    music1->setVolume(0.6f);
 
     btn =new QPushButton("开始",this);
     btn->setParent(this);
@@ -96,7 +92,7 @@ void MainWindow::connectGameWindow(game *music,choosemusic*c)
 {
 
     connect(music->restart,&QPushButton::clicked,[=](){
-        music1->play();
+        b->play();
         emit music->renew();
         QTimer::singleShot(600,music,[=](){
             music->deleteLater();
@@ -107,7 +103,7 @@ void MainWindow::connectGameWindow(game *music,choosemusic*c)
         emit music->showScene();
     });
     connect(music->fanhui,&QPushButton::clicked,[=](){
-        music1->play();
+        b->play();
         emit music->back();
         QTimer::singleShot(1000,background,[=](){
             background->play();
@@ -118,7 +114,7 @@ void MainWindow::connectGameWindow(game *music,choosemusic*c)
         });
     });
     connect(music->zanting,&QPushButton::clicked,[=](){
-        music1->play();
+        b->play();
         QTimer::singleShot(1000,music,[=](){
             emit music->pause();
         });
@@ -126,6 +122,7 @@ void MainWindow::connectGameWindow(game *music,choosemusic*c)
     });
 
     connect(music,&game::gameOver,[=](){
+        push->play();
         gameover*over=new gameover(music->s,this);
         connectGameOver(music,over,c,music->s);
         over->show();
@@ -205,14 +202,14 @@ void MainWindow::connectSonWindow(sonwindow*choose,gameover*parent,game*music1)
 //选曲界面
 void MainWindow::connectChooseWindow(choosemusic*c){
     connect(c->btn1,&musicchoose::clicked,[=](){
-        music1->play();
+        b->play();
         c->btn1->m->play();
         background->stop();
     });
     connect(c,&choosemusic::closed, c->btn1->m,&QSoundEffect::stop);
     connect(c,&choosemusic::closed,background,&QSoundEffect::play);
     connect(c->btn2,&musicchoose::clicked,[=](){
-        music1->play();
+        b->play();
         c->btn1->m->stop();
         background->stop();
         game*musiccpy=new game(c->btn1->music);
@@ -230,14 +227,14 @@ void MainWindow::connectChooseWindow(choosemusic*c){
 
 
     connect(c->btnmusic,&musicchoose::clicked,[=](){
-        music1->play();
+        b->play();
         c->btnmusic->m->play();
         background->stop();
     });
     connect(c,&choosemusic::closed,c->btnmusic->m,&QSoundEffect::stop);
     connect(c,&choosemusic::closed,background,&QSoundEffect::play);
     connect(c->btn3,&musicchoose::clicked,[=](){
-        music1->play();
+        b->play();
         c->btnmusic->m->stop();
         background->stop();
         game*musiccpy=new game(c->btnmusic->music);
@@ -246,7 +243,6 @@ void MainWindow::connectChooseWindow(choosemusic*c){
         QTimer::singleShot(500,musiccpy,[=](){
             musiccpy->show();
         });
-
         QTimer::singleShot(1000,c,[=](){
             c->hide();
         });
@@ -254,14 +250,14 @@ void MainWindow::connectChooseWindow(choosemusic*c){
     });
 
     connect(c->L,&musicchoose::clicked,[=](){
-        music1->play();
+        b->play();
         c->L->m->play();
         background->stop();
     });
     connect(c,&choosemusic::closed,c->L->m,&QSoundEffect::stop);
     connect(c,&choosemusic::closed,background,&QSoundEffect::play);
     connect(c->l1,&musicchoose::clicked,[=](){
-        music1->play();
+        b->play();
         c->L->m->stop();
         background->stop();
         game*musiccpy=new game(c->L->music);
@@ -278,7 +274,7 @@ void MainWindow::connectChooseWindow(choosemusic*c){
     });
 
     connect(c->fanhui,&QPushButton::clicked,[=](){
-        music1->play();
+        b->play();
         emit c->closed();
         QTimer::singleShot(300,this,[=](){
             this->show();
@@ -295,13 +291,14 @@ void MainWindow::connectChooseWindow(choosemusic*c){
 void MainWindow::connectGameOver(game*music1,gameover*over,choosemusic*c,int score)
 {
     connect(over,&gameover::Back,[=](){
+        push->play();
         over->deleteLater();
         this->show();
         background->play();
         music1->deleteLater();
     });
     connect(over,&gameover::Restart,[=](){
-        this->music1->play();
+        push->play();
         emit music1->renew();
         QTimer::singleShot(600,music1,[=](){
             music1->deleteLater();
@@ -313,12 +310,9 @@ void MainWindow::connectGameOver(game*music1,gameover*over,choosemusic*c,int sco
         over->deleteLater();
     });
     connect(over,&gameover::TuiChu,[=](){
+        push->play();
         sonwindow*choose=new sonwindow(over);
         connectSonWindow(choose,over,music1);
-        // over->deleteLater();
         choose->show();
-        // QTimer::singleShot(600,music1,[=](){
-        //     music1->deleteLater();
-        // });
     });
 }

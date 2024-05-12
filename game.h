@@ -4,10 +4,8 @@
 #include <QMainWindow>
 #include<QPushButton>
 #include<QTimer>
-#include<QList>
 #include"down.h"
 #include"evaluate.h"
-#include<QKeyEvent>
 #include<QSoundEffect>
 #include"teach.h"
 #include"adjust.h"
@@ -18,6 +16,8 @@ public:
     explicit game(QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *event);
     game(QString musicname=":/music/Maozon - Stasis.mp3");
+    friend class MainWindow;
+private:
     QPushButton* fanhui;
     QPushButton* restart;
     QPushButton* zanting;
@@ -29,7 +29,6 @@ public:
     adjust* ad;
     QTimer* maintime;//音符移动时钟
     QTimer* showtime;//音符出现时钟
-    int a[6]={0,1,2,3,4,5};//统计音符消失数组
     int s;
     int num;//统计按下暂停次数
     QPushButton *score;

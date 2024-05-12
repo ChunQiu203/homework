@@ -60,7 +60,6 @@ down::down(QObject*parent,int xia,int Time) {
 
     //音符消失
     //进行评价，在game界面中实现
-
     //点击动画的实现
     connect(this,&down::best,this,[=](){
         this->changeSuccess();

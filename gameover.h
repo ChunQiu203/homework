@@ -17,7 +17,6 @@ public:
     gameover(int score,QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *event);
     ~gameover();
-
 private:
     Ui::gameover *ui;
 signals:

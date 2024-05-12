@@ -9,6 +9,10 @@ class musicchoose : public QPushButton
 public:
     musicchoose();
     musicchoose(QString normalimage,QString musicname="添加更多");
+    friend class choosemusic;
+    friend class game;
+    friend class MainWindow;
+private:
     //成员属性 保存用户传入的默认显示路径 以及按下后显示的默认路径
     QString normalimagepath;
     QString music;

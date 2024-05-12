@@ -14,13 +14,12 @@ public:
     QPushButton *fanhui;
     musicchoose *btn1;
     QPushButton *btn2;
-    musicchoose*btnmusic;
-    QPushButton* btn3;
-    musicchoose*L;
-    QPushButton* l1;
+    musicchoose *btnmusic;
+    QPushButton *btn3;
+    musicchoose *L;
+    QPushButton *l1;
 signals:
     void closed();
-    //void showGame();
 };
 
 #endif // CHOOSEMUSIC_H

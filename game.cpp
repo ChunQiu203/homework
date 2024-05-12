@@ -1,7 +1,6 @@
 #include "game.h"
 #include "choosemusic.h"
 #include<QPainter>
-#include<QIcon>
 #include<QMenuBar>
 #include<QPainter>
 #include<QPixmap>
@@ -71,7 +70,7 @@ game::game(QString musicname)
         showtime->start(ad->chuSpeed);
     });
     connect(this,&game::showScene,[=](){
-        showtime->start(ad->chuSpeed);//设定音符出现时间间隔2秒
+        showtime->start(ad->chuSpeed);//设定音符出现时间间隔
     });
     connect(showtime,&QTimer::timeout,[=](){
         emit this->showyinfu();

@@ -22,8 +22,8 @@ public:
     ~MainWindow();
     void paintEvent(QPaintEvent *event);
     void connectGameWindow(game*music,choosemusic*c);
+private:
     QSoundEffect* background;
-    QSoundEffect*music1;
     QSoundEffect*b;
     QSoundEffect *push;
     void connectMainWindow(choosemusic*c);

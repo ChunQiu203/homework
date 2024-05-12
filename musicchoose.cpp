@@ -13,7 +13,6 @@ musicchoose::musicchoose(QString normalimage,QString musicname)
     bool ret=pix.load(normalimagepath);
     if(!ret)
     {
-        qDebug()<<"图片加载失败";
         return;
     }
     //设置图片大小

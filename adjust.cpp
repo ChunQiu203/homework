@@ -5,7 +5,7 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QSlider>
-
+//静态变量
 int adjust::xiaSpeed = 20;
 int adjust::chuSpeed = 3000;
 int adjust::TimeD=0;

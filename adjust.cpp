@@ -36,10 +36,12 @@ adjust::adjust(QWidget *parent)
     connect(ui->xiaNum,&QSpinBox::valueChanged,[=](){
         xiaSpeed=ui->xiaNum->value();
         ui->xiaSlider->setValue(xiaSpeed);
+        emit this->xiaChanged();
     });
     connect(ui->xiaSlider,&QSlider::valueChanged,[=](){
         xiaSpeed=ui->xiaSlider->value();
         ui->xiaNum->setValue(xiaSpeed);
+        emit this->xiaChanged();
     });
     connect(ui->chuNum,&QSpinBox::valueChanged,[=](){
         chuSpeed=ui->chuNum->value();
@@ -54,10 +56,12 @@ adjust::adjust(QWidget *parent)
     connect(ui->TimeDelayNum,&QSpinBox::valueChanged,[=](){
         TimeD=ui->TimeDelayNum->value();
         ui->TimeDelaySlider->setValue(TimeD);
+
     });
     connect(ui->TimeDelaySlider,&QSlider::valueChanged,[=](){
         TimeD=ui->TimeDelaySlider->value();
         ui->TimeDelayNum->setValue(TimeD);
+
     });
 }
 void adjust::paintEvent(QPaintEvent *event)

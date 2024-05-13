@@ -83,7 +83,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>250</y>
+      <y>220</y>
       <width>391</width>
       <height>16</height>
      </rect>
@@ -96,13 +96,13 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>220</y>
+      <y>250</y>
       <width>321</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>调整界面在菜单栏</string>
+     <string>但是为了保证最佳的游戏体验，下落时间的100倍要小于音符的出现时间</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">

@@ -17,7 +17,7 @@
 #include<QRandomGenerator>
 #include"timer.h"
 #include<QSpinBox>
-
+#include"downup.h"
 using namespace std;
 game::game(QWidget *parent)
     : QMainWindow{parent}
@@ -26,6 +26,7 @@ game::game(QString musicname)
 {
     num=-1;
     s=0;
+    this->musicname=musicname;
 
     //配置选择场景
     this->setFixedSize(1000,618);
@@ -131,7 +132,7 @@ game::game(QString musicname)
     score->move(430,40);
 
     connect(this,&game::showyinfu,[=](){
-        this->generateDownObject();
+        this->generateDownObject<down>();
     });
     jieshu=new QPushButton(this);
     jieshu->setText("结束游戏");
@@ -150,6 +151,7 @@ void game::paintEvent(QPaintEvent *event)
     pix.load(":/选曲背景.png");
     painter.drawPixmap(0,0,this->width(),this->height(),pix);
 }
+template<typename T>
 void game::generateDownObject(){
     QSoundEffect* dian=new QSoundEffect(this);
     dian->setSource(QUrl::fromLocalFile(":/音符.wav"));
@@ -158,7 +160,7 @@ void game::generateDownObject(){
     ba->setSource(QUrl::fromLocalFile(":/音符miss.wav"));
     ba->setVolume(1.0f);
 
-    down* yinfu = new down(this,ad->xiaSpeed,ad->TimeD);
+    T* yinfu = new T(this,ad->xiaSpeed,ad->TimeD);
     yinfu->setParent(this);
     yinfu->setVisible(true);
     evaluate*pingjia=new evaluate();
@@ -171,8 +173,12 @@ void game::generateDownObject(){
         music->stop();
         showtime->stop();
     });
+    connect(ad,&adjust::xiaChanged,[=](){
+        yinfu->downSpeed=ad->xiaSpeed;
+        emit yinfu->timer->Start(yinfu->downSpeed);
+    });
 
-    connect(yinfu,&down::best,[=](){
+    connect(yinfu,&T::best,[=](){
         s+=3;
         score->setText(QString::number(s));
         if(s<-22)
@@ -180,7 +186,7 @@ void game::generateDownObject(){
             emit this->gameOver();
         }
     });
-    connect(yinfu,&down::good,[=](){
+    connect(yinfu,&T::good,[=](){
         s+=2;
         score->setText(QString::number(s));
         if(s<-22)
@@ -188,7 +194,7 @@ void game::generateDownObject(){
             emit this->gameOver();
         }
     });
-    connect(yinfu,&down::bad,[=](){
+    connect(yinfu,&T::bad,[=](){
         s++;
         score->setText(QString::number(s));
         if(s<-22)
@@ -196,7 +202,7 @@ void game::generateDownObject(){
             emit this->gameOver();
         }
     });
-    connect(yinfu,&down::miss,[=](){
+    connect(yinfu,&T::miss,[=](){
         s--;
         score->setText(QString::number(s));
         if(s<-22)
@@ -204,7 +210,7 @@ void game::generateDownObject(){
             emit this->gameOver();
         }
     });
-    connect(yinfu,&down::clicked,[=](){
+    connect(yinfu,&T::clicked,[=](){
         yinfu->self=yinfu->p->remainingTime();//获取剩余时间
         if(yinfu->self-ad->xiaSpeed*50<=15*ad->xiaSpeed&&yinfu->self-ad->xiaSpeed*50>=-15*ad->xiaSpeed&&yinfu->flag==0/*BEST*/)
         {

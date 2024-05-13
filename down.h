@@ -10,14 +10,18 @@ class down : public QPushButton
 public:
     down(QObject*parent,int xia,int Time);
     friend class game;
+    friend class gametwo;
+    friend class downUp;
 private:
     //音符位置坐标
     int x;
     int y;
     int self=0;//音符剩余时间
+    int downSpeed;
      //改变标志的方法
     void changeSuccess();
     void changelose();
+    void changeLocation();
     Timer *timer;//改变音符位置的定时器
     Timer *p;//音符出现的计时器
     bool flag=0;//判断是否点击

@@ -15,8 +15,11 @@ class game : public QMainWindow
 public:
     explicit game(QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *event);
+
     game(QString musicname=":/music/Maozon - Stasis.mp3");
     friend class MainWindow;
+    friend class gametwo;
+    template <typename T>void generateDownObject();
 private:
     QPushButton* fanhui;
     QPushButton* restart;
@@ -25,6 +28,7 @@ private:
     QSoundEffect* dian;
     QSoundEffect* ba;
     QPushButton* jieshu;
+    QString musicname;
     teach* te;
     adjust* ad;
     QTimer* showtime;//音符出现时钟
@@ -39,8 +43,7 @@ signals:
     void change();
     void showyinfu();
     void gameOver();
-private slots:
-    void generateDownObject();
+
 };
 
 

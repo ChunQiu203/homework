@@ -39,6 +39,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         timer.h timer.cpp
         gameover.h gameover.cpp gameover.ui
 
+        downup.h downup.cpp
+
+        gametwo.h gametwo.cpp
+        gametwo.h gametwo.cpp gametwo.ui
+
+
+
 
 
 

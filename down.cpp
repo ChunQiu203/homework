@@ -30,22 +30,8 @@ down::down(QObject*parent,int xia,int Time) {
     //设置图标大小
     setIconSize(QSize(pix.width(),pix.height()));
 
-
-    x = QRandomGenerator::global()->bounded(40,800);
-    y = 50;
-    this->move(x,y);
-    //设置初始位置
-    //音符位置要随时间的变化而变化
-
-    //位置计时器
-    timer = new Timer(this);
-    timer->setParent(this);
-    emit timer->Start(xia);
-
-    //改变音符位置
-    connect(timer,&Timer::timerTimeout,[=](){
-        this->move(x,++y);
-    });
+    downSpeed=xia;
+    changeLocation();
 
     //出现计时器
     p=new Timer(this);
@@ -103,5 +89,23 @@ void down::changelose()
     emit this->p->Stop();
     QTimer::singleShot(500,this,[=](){
         this->hide();
+    });
+}
+void down::changeLocation()
+{
+    x = QRandomGenerator::global()->bounded(40,800);
+    y = 50;
+    this->move(x,y);
+    //设置初始位置
+    //音符位置要随时间的变化而变化
+
+    //位置计时器
+    timer = new Timer(this);
+    timer->setParent(this);
+    emit timer->Start(downSpeed);
+
+    //改变音符位置
+    connect(timer,&Timer::timerTimeout,[=](){
+        this->move(x,++y);
     });
 }

@@ -20,12 +20,14 @@ private:
     static int chuSpeed;
     static int TimeD;
     friend class game;
+    friend class gametwo;
 
 
 private:
     Ui::adjust *ui;
 signals:
     void chuChanged();
+    void xiaChanged();
 };
 
 #endif // ADJUST_H

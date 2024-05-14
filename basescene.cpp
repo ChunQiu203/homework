@@ -11,6 +11,7 @@ basescene::basescene(QWidget *parent)
     : QMainWindow{parent}
 {
     //配置选择场景
+    this->setParent(parent);
     this->setFixedSize(1000,618);
     //设置图标
     this->setWindowIcon(QIcon(":/music.ico"));
@@ -26,8 +27,8 @@ basescene::basescene(QWidget *parent)
     QAction* study=jiaoxue->addAction("学习");
     QAction* open=tiaozheng->addAction("打开");
 
-    teach* te=new teach();
-    adjust* ad=new adjust();
+    te=new teach();
+    ad=new adjust();
     connect(study,&QAction::triggered,te,&teach::show);
     connect(open,&QAction::triggered,ad,&adjust::show);
 

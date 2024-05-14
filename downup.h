@@ -33,10 +33,6 @@ public:
         {
             emit clicked(true);
         }
-        else if(event->key()==Qt::Key_F&&x==4)
-        {
-            emit clicked(true);
-        }
         else if(event->key()==Qt::Key_J&&x==5)
         {
             emit clicked(true);

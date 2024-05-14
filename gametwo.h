@@ -11,18 +11,18 @@
 #include "downup.h"
 #include "evaluate.h"
 #include "teach.h"
+#include"basescene.h"
 namespace Ui {
 class gametwo;
 }
-
-class gametwo : public QMainWindow
+class gametwo : public basescene
 {
     Q_OBJECT
 public:
     void generateDownObjecttwo();
     void paintEvent(QPaintEvent *event);
     ~gametwo();
-    gametwo(QString musicname);
+    gametwo(QString musicname,QWidget*parent);
     friend class MainWindow;
     QPushButton *fanhui;
     QPushButton *restart;
@@ -32,8 +32,6 @@ public:
     QSoundEffect *ba;
     QPushButton *jieshu;
     QString musicname;
-    teach *te;
-    adjust *ad;
     QTimer *showtime; //音符出现时钟
     int s;
     int num; //统计按下暂停次数

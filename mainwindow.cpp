@@ -13,7 +13,7 @@
 #include"choosemusic.h"
 #include"musicchoose.h"
 #include"gameover.h"
-
+#include<QVBoxLayout>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -82,12 +82,6 @@ MainWindow::MainWindow(QWidget *parent)
     connectMainWindow(c);
     //游戏结束界面
 //开始界面，按钮信号的处理3
-
-
-
-
-
-
     //新的模式
 }
 //设置背景图
@@ -109,13 +103,14 @@ void MainWindow::connectGameWindow(game *music,choosemusic*c)
     connect(music->restart,&QPushButton::clicked,[=](){
         b->play();
         emit music->renew();
+        game*music3=new game(music->musicname,this);
+        music3->setParent(this);
+        connectGameWindow(music3,c);
+        music3->show();
+        emit music3->showScene();
         QTimer::singleShot(600,music,[=](){
             music->deleteLater();
         });
-        game*music3=new game(":/Kirara Magic - Dragonflame.wav");
-        connectGameWindow(music3,c);
-        music3->show();
-        emit music->showScene();
     });
     connect(music->fanhui,&QPushButton::clicked,[=](){
         b->play();
@@ -139,6 +134,7 @@ void MainWindow::connectGameWindow(game *music,choosemusic*c)
     connect(music,&game::gameOver,[=](){
         push->play();
         gameover*over=new gameover(music->s,this);
+        over->setParent(this);
         connectGameOver(music,over,c,music->s);
         over->show();
     });
@@ -151,13 +147,14 @@ void MainWindow::connectGameWindow(gametwo*music,choosemusic*c)
     connect(music->restart,&QPushButton::clicked,[=](){
         b->play();
         emit music->renew();
+        gametwo*music3=new gametwo(music->musicname,this);
+        music3->setParent(this);
+        connectGameWindow(music3,c);
+        music3->show();
+        emit music3->showScene();
         QTimer::singleShot(600,music,[=](){
             music->deleteLater();
         });
-        gametwo*music3=new gametwo(music->musicname);
-        connectGameWindow(music3,c);
-        music3->show();
-        emit music->showScene();
     });
     connect(music->fanhui,&QPushButton::clicked,[=](){
         b->play();
@@ -181,15 +178,16 @@ void MainWindow::connectGameWindow(gametwo*music,choosemusic*c)
     connect(music,&gametwo::gameOver,[=](){
         push->play();
         gameover*over=new gameover(music->s,this);
+        over->setParent(this);
         connectGameOver(music,over,c,music->s);
         over->show();
     });
-
 }
 void MainWindow::connectMainWindow(choosemusic*c)
 {
     connect(btn,&QPushButton::clicked,[=](){
-        game* music2=new game(":/Kirara Magic - Dragonflame.wav");
+        game* music2=new game(":/Kirara Magic - Dragonflame.wav",this);
+        music2->setParent(this);
         connectGameWindow(music2,c);
         push->play();
         background->stop();
@@ -197,12 +195,12 @@ void MainWindow::connectMainWindow(choosemusic*c)
             music2->show();
             emit music2->showScene();
         });
-        this->hide();
     });
 
     connect(btn2,&QPushButton::clicked,[=](){
         push->play();
         sonwindow*choose=new sonwindow(this);
+        choose->setParent(this);
         connectSonWindow(choose,this);
         QTimer::singleShot(400,choose,[=](){
             choose->show();
@@ -211,7 +209,6 @@ void MainWindow::connectMainWindow(choosemusic*c)
     connect(btn3,&QPushButton::clicked,[=](){
         //延时0.5秒后，进入选择场景
         push->play();
-        this->hide();
         QTimer::singleShot(500,this,[=](){
             c->show();
         });
@@ -219,7 +216,8 @@ void MainWindow::connectMainWindow(choosemusic*c)
 
 
     connect(btn4,&QPushButton::clicked,[=](){
-        gametwo* music1=new gametwo(":/夢幻.wav");
+        gametwo* music1=new gametwo(":/夢幻.wav",this);
+        music1->setParent(this);
         connectGameWindow(music1,c);
         push->play();
         background->stop();
@@ -227,7 +225,6 @@ void MainWindow::connectMainWindow(choosemusic*c)
             music1->show();
             emit music1->showScene();
         });
-        this->hide();
     });
 }
 //选择界面
@@ -237,9 +234,7 @@ void MainWindow::connectSonWindow(sonwindow*choose,QMainWindow*parent)
     choose->move(700,400);
     connect(choose->queren,&QPushButton::clicked,[=](){
         push->play();
-        QTimer::singleShot(600,parent,[=](){
-            parent->close();
-        });
+        QApplication::quit();
     });
     connect(choose->quxiao,&QPushButton::clicked,[=](){
         push->play();
@@ -257,10 +252,7 @@ void MainWindow::connectSonWindow(sonwindow*choose,gameover*parent, game*music1)
     choose->show();
     connect(choose->queren,&QPushButton::clicked,[=](){
         push->play();
-        QTimer::singleShot(600,parent,[=](){
-            parent->deleteLater();
-        });
-        music1->deleteLater();
+        QApplication::quit();
     });
     connect(choose->quxiao,&QPushButton::clicked,[=](){
         push->play();
@@ -274,12 +266,10 @@ void MainWindow::connectSonWindow(sonwindow*choose,gameover*parent, gametwo*musi
     //选择界面，按钮信号的处理
     choose->move(700,400);
     choose->show();
+     emit OVER();
     connect(choose->queren,&QPushButton::clicked,[=](){
         push->play();
-        QTimer::singleShot(600,parent,[=](){
-            parent->deleteLater();
-        });
-        music1->deleteLater();
+        QApplication::quit();
     });
     connect(choose->quxiao,&QPushButton::clicked,[=](){
         push->play();
@@ -391,19 +381,20 @@ void MainWindow::connectGameOver(game*music1,gameover*over,choosemusic*c,int sco
     connect(over,&gameover::Restart,[=](){
         push->play();
         emit music1->renew();
-        QTimer::singleShot(600,music1,[=](){
-            music1->deleteLater();
-        });
-        game*music=new game(":/Kirara Magic - Dragonflame.wav");
+        game*music=new game(music1->musicname,this);
         connectGameWindow(music,c);
         music->show();
         emit music->showScene();
+        QTimer::singleShot(600,music1,[=](){
+            music1->deleteLater();
+        });
         over->deleteLater();
     });
     connect(over,&gameover::TuiChu,[=](){
         push->play();
         sonwindow*choose=new sonwindow(over);
         connectSonWindow(choose,over,music1);
+        choose->setParent(over);
         choose->show();
     });
 }
@@ -419,19 +410,20 @@ void MainWindow::connectGameOver(gametwo*music1,gameover*over,choosemusic*c,int 
     connect(over,&gameover::Restart,[=](){
         push->play();
         emit music1->renew();
-        QTimer::singleShot(600,music1,[=](){
-            music1->deleteLater();
-        });
-        gametwo*music=new gametwo(":/Kirara Magic - Dragonflame.wav");
+        gametwo*music=new gametwo(music1->musicname,this);
         connectGameWindow(music,c);
         music->show();
         emit music->showScene();
+        QTimer::singleShot(600,music1,[=](){
+            music1->deleteLater();
+        });
         over->deleteLater();
     });
     connect(over,&gameover::TuiChu,[=](){
         push->play();
         sonwindow*choose=new sonwindow(over);
         connectSonWindow(choose,over,music1);
+        choose->setParent(over);
         choose->show();
     });
 }

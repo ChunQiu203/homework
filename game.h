@@ -9,14 +9,12 @@
 #include<QSoundEffect>
 #include"teach.h"
 #include"adjust.h"
-class game : public QMainWindow
+#include"basescene.h"
+class game : public basescene
 {
     Q_OBJECT
 public:
-    explicit game(QWidget *parent = nullptr);
-    void paintEvent(QPaintEvent *event);
-
-    game(QString musicname=":/music/Maozon - Stasis.mp3");
+    game(QString musicname=":/music/Maozon - Stasis.mp3",QWidget*parent=nullptr);
     friend class MainWindow;
     friend class gametwo;
     template <typename T>void generateDownObject();
@@ -29,8 +27,6 @@ private:
     QSoundEffect* ba;
     QPushButton* jieshu;
     QString musicname;
-    teach* te;
-    adjust* ad;
     QTimer* showtime;//音符出现时钟
     int s;
     int num;//统计按下暂停次数

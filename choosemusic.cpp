@@ -14,7 +14,6 @@
 #include"mainwindow.h"
 choosemusic::choosemusic(QWidget *parent)
 {
-
     //返回按钮
     fanhui=new QPushButton("返回大厅",this);
     fanhui->setStyleSheet("QPushButton{border: none;font-family:'华文行楷';font-size:16px;color:rgb(120,146,98)}");

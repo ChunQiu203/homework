@@ -24,30 +24,22 @@
 #include "teach.h"
 #include "timer.h"
 #include<QLine>
-gametwo::gametwo(QString musicname)
-    : ui(new Ui::gametwo)
+gametwo::gametwo(QString musicname,QWidget*parent)
+    :basescene{parent}
+    , ui(new Ui::gametwo)
 {
     ui->setupUi(this);
     num = -1;
     s = 0;
-    //配置选择场景
-    this->setFixedSize(1000, 618);
-    //设置图标
-    this->setWindowIcon(QIcon(":/music.ico"));
-    //设置标题
-    this->setWindowTitle(musicname);
-    QMenuBar *menu = menuBar(); //菜单栏创建
-    setMenuBar(menu);           //将菜单栏放入窗口中
-    //创建菜单
-    QMenu *jiaoxue = menu->addMenu("教学");
-    QMenu *tiaozheng = menu->addMenu("调整");
-    //创建菜单项
-    QAction *study = jiaoxue->addAction("学习");
-    QAction *open = tiaozheng->addAction("打开");
-    te = new teach(this);
-    ad = new adjust(this);
-    connect(study, &QAction::triggered, te, &teach::show);
-    connect(open, &QAction::triggered, ad, &adjust::show);
+
+    this->musicname=musicname;
+    music = new QSoundEffect(this);
+    music->setSource(QUrl::fromLocalFile(musicname));
+    music->setVolume(0.5f);
+    dian = new QSoundEffect(this);
+    dian->setSource(QUrl::fromLocalFile(":/音符.wav"));
+    ba = new QSoundEffect(this);
+    ba->setSource(QUrl::fromLocalFile(":/音符miss.wav"));
 
     restart = new QPushButton(this);
     restart->setText("重新开始");
@@ -76,17 +68,11 @@ gametwo::gametwo(QString musicname)
     });
     connect(this, &gametwo::showScene, [=]() {
         showtime->start(ad->chuSpeed); //设定音符出现时间间隔
+        music->play();
     });
     connect(showtime, &QTimer::timeout, [=]() { emit this->showyinfu(); });
     connect(this, &gametwo::gameOver, showtime, &QTimer::stop);
-    music = new QSoundEffect(this);
-    music->setSource(QUrl::fromLocalFile(musicname));
-    dian = new QSoundEffect(this);
-    dian->setSource(QUrl::fromLocalFile(":/音符.wav"));
-    ba = new QSoundEffect(this);
-    ba->setSource(QUrl::fromLocalFile(":/音符miss.wav"));
 
-    connect(this, &gametwo::showScene, music, &QSoundEffect::play);
     connect(this, &gametwo::pause, [=]() {
         if (num % 2 == 0) {
             music->stop();
@@ -98,7 +84,6 @@ gametwo::gametwo(QString musicname)
             zanting->setText("暂停");
         }
     });
-    connect(this, &gametwo::renew, music, &QSoundEffect::play);
 
     //判定线设定
     QPushButton *panding = new QPushButton(this);

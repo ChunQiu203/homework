@@ -19,34 +19,20 @@
 #include<QSpinBox>
 #include"downup.h"
 using namespace std;
-game::game(QWidget *parent)
-    : QMainWindow{parent}
-{}
-game::game(QString musicname)
+game::game(QString musicname,QWidget*parent)
+    :basescene{parent}
 {
     num=-1;
     s=0;
     this->musicname=musicname;
+    this->setParent(parent);
 
-    //配置选择场景
-    this->setFixedSize(1000,618);
-    //设置图标
-    this->setWindowIcon(QIcon(":/music.ico"));
-    //设置标题
-    this->setWindowTitle(musicname);
-    QMenuBar *menu=menuBar();//菜单栏创建
-    setMenuBar(menu);//将菜单栏放入窗口中
-    //创建菜单
-    QMenu* jiaoxue=menu->addMenu("教学");
-    QMenu* tiaozheng=menu->addMenu("调整");
-    //创建菜单项
-    QAction* study=jiaoxue->addAction("学习");
-    QAction* open=tiaozheng->addAction("打开");
-    te=new teach(this);
-    ad=new adjust(this);
-    connect(study,&QAction::triggered,te,&teach::show);
-    connect(open,&QAction::triggered,ad,&adjust::show);
-
+    music=new QSoundEffect(this);
+    music->setSource(QUrl::fromLocalFile(musicname));
+    dian=new QSoundEffect(this);
+    dian->setSource(QUrl::fromLocalFile(":/音符.wav"));
+    ba=new QSoundEffect(this);
+    ba->setSource(QUrl::fromLocalFile(":/音符miss.wav"));
 
     restart= new QPushButton(this);
     restart->setText("重新开始");
@@ -71,20 +57,13 @@ game::game(QString musicname)
         showtime->start(ad->chuSpeed);
     });
     connect(this,&game::showScene,[=](){
+        music->play();
         showtime->start(ad->chuSpeed);//设定音符出现时间间隔
     });
     connect(showtime,&QTimer::timeout,[=](){
         emit this->showyinfu();
     });
     connect(this,&game::gameOver,showtime,&QTimer::stop);
-    music=new QSoundEffect(this);
-    music->setSource(QUrl::fromLocalFile(musicname));
-    dian=new QSoundEffect(this);
-    dian->setSource(QUrl::fromLocalFile(":/音符.wav"));
-    ba=new QSoundEffect(this);
-    ba->setSource(QUrl::fromLocalFile(":/音符miss.wav"));
-
-    connect(this,&game::showScene,music,&QSoundEffect::play);
     connect(this,&game::pause,[=](){
         if(num%2==0)
             {
@@ -132,7 +111,7 @@ game::game(QString musicname)
     score->move(430,40);
 
     connect(this,&game::showyinfu,[=](){
-        this->generateDownObject<down>();
+        this->generateDownObject<downUp>();
     });
     jieshu=new QPushButton(this);
     jieshu->setText("结束游戏");
@@ -144,13 +123,6 @@ game::game(QString musicname)
     });
 
 }
-void game::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
-    QPixmap pix;
-    pix.load(":/选曲背景.png");
-    painter.drawPixmap(0,0,this->width(),this->height(),pix);
-}
 template<typename T>
 void game::generateDownObject(){
     QSoundEffect* dian=new QSoundEffect(this);
@@ -160,7 +132,7 @@ void game::generateDownObject(){
     ba->setSource(QUrl::fromLocalFile(":/音符miss.wav"));
     ba->setVolume(1.0f);
 
-    T* yinfu = new T(this,ad->xiaSpeed,ad->TimeD);
+    T* yinfu = new T(this,ad->xiaSpeed,ad->chuSpeed,ad->TimeD);
     yinfu->setParent(this);
     yinfu->setVisible(true);
     evaluate*pingjia=new evaluate();

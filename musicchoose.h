@@ -6,6 +6,8 @@
 #include<QSoundEffect>
 class musicchoose : public QPushButton
 {
+public:
+    ~musicchoose();
 private:
     musicchoose();
     musicchoose(QString normalimage,QString musicname="添加更多");

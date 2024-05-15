@@ -3,10 +3,6 @@
 #include<QKeyEvent>
 downUp::downUp(QObject*parent,int xia,int Show,int Time)
 {
-    QSoundEffect* dian=new QSoundEffect(this);
-    dian->setSource(QUrl::fromLocalFile(":/按键音.wav"));
-    QSoundEffect* ba=new QSoundEffect(this);
-    ba->setSource(QUrl::fromLocalFile(":/按键音2.wav"));
     resize(80,20);
     //设定音符样式
     QPixmap pix;
@@ -35,7 +31,12 @@ downUp::downUp(QObject*parent,int xia,int Show,int Time)
     p->setSingleShot(true);  //表示只计时一次
     emit p->Start(500*xia+Time);
 
-    emit F->Start(500*xia+Time-Show);
+    int a=500*xia+Time-Show;
+    if(a<=0)
+    {
+        a=100;
+    }
+    emit F->Start(a);
     //判断时间
     connect(p,&Timer::timerTimeout,[=](){
         emit downUp::miss();
@@ -108,4 +109,11 @@ void downUp::changelose()
     QTimer::singleShot(500,this,[=](){
         this->hide();
     });
+}
+downUp::~downUp()
+{
+    delete p;
+    delete timer;
+    delete F;
+
 }

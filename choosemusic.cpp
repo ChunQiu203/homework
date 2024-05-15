@@ -53,3 +53,13 @@ choosemusic::choosemusic(QWidget *parent)
     l1->setStyleSheet("QPushButton{border: none;font-family:'华文楷体';font-size:24px;color:rgb(66,102,102)；font-}");
 
 }
+choosemusic::~choosemusic()
+{
+    delete fanhui;
+    delete btn1;
+    delete btn2;
+    delete btnmusic;
+    delete btn3;
+    delete L;
+    delete l1;
+}

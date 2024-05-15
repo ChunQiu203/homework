@@ -8,10 +8,6 @@
 using namespace std;
 down::down(QObject*parent,int xia,int Time) {
     //设定音符点击音效
-    QSoundEffect* dian=new QSoundEffect(this);
-    dian->setSource(QUrl::fromLocalFile(":/按键音.wav"));
-    QSoundEffect* ba=new QSoundEffect(this);
-    ba->setSource(QUrl::fromLocalFile(":/按键音2.wav"));
     resize(80,20);
     //设定音符样式
     QPixmap pix;
@@ -108,4 +104,9 @@ void down::changeLocation()
     connect(timer,&Timer::timerTimeout,[=](){
         this->move(x,++y);
     });
+}
+down::~down()
+{
+    delete timer;
+    delete p;
 }

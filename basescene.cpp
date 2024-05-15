@@ -17,15 +17,15 @@ basescene::basescene(QWidget *parent)
     this->setWindowIcon(QIcon(":/music.ico"));
     //设置标题
     this->setWindowTitle("音游？");
-    QMenuBar *menu=menuBar();//菜单栏创建
+    menu=menuBar();//菜单栏创建
     setMenuBar(menu);//将菜单栏放入窗口中
     //创建菜单
-    QMenu* jiaoxue=menu->addMenu("教学");
+    jiaoxue=menu->addMenu("教学");
 
-    QMenu* tiaozheng=menu->addMenu("调整");
+    tiaozheng=menu->addMenu("调整");
     //创建菜单项
-    QAction* study=jiaoxue->addAction("学习");
-    QAction* open=tiaozheng->addAction("打开");
+    study=jiaoxue->addAction("学习");
+    open=tiaozheng->addAction("打开");
 
     te=new teach();
     ad=new adjust();
@@ -40,4 +40,8 @@ void basescene::paintEvent(QPaintEvent *event)
     pix.load(":/选曲背景.png");
     painter.drawPixmap(0,0,this->width(),this->height(),pix);
 }
-
+basescene::~basescene()
+{
+    delete te;
+    delete ad;
+}

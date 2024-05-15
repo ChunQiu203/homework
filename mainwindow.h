@@ -43,7 +43,5 @@ private:
 
 private:
     Ui::MainWindow *ui;
-signals:
-    void OVER();
 };
 #endif // MAINWINDOW_H

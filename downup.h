@@ -3,11 +3,6 @@
 
 #include "down.h"
 #include<QKeyEvent>
-#include<QTimer>
-#include<QPixmap>
-#include<QSoundEffect>
-#include<QLabel>
-#include<QRandomGenerator>
 #include"evaluate.h"
 class downUp : public QPushButton
 {
@@ -50,6 +45,7 @@ public:
             emit clicked(true);
         }
     }
+    ~downUp();
     friend class game;
     friend class gametwo;
 private:

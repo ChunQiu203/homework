@@ -12,6 +12,7 @@ public:
     friend class game;
     friend class gametwo;
     friend class downUp;
+    ~down();
 private:
     //音符位置坐标
     int x;

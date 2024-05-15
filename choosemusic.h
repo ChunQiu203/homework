@@ -11,6 +11,7 @@ class choosemusic : public basescene
     Q_OBJECT
 public:
     choosemusic(QWidget *parent);
+    ~choosemusic();
     QPushButton *fanhui;
     musicchoose *btn1;
     QPushButton *btn2;

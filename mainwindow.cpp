@@ -62,15 +62,20 @@ MainWindow::MainWindow(QWidget *parent)
     btn4->resize(80,20);
 
     QMenuBar *menu=menuBar();//菜单栏创建
+    menu->setParent(this);
     setMenuBar(menu);//将菜单栏放入窗口中
     //创建菜单
     QMenu* jiaoxue=menu->addMenu("教学");
     QMenu* tiaozheng=menu->addMenu("调整");
     //创建菜单项
     QAction* study=jiaoxue->addAction("学习");
+    study->setParent(jiaoxue);
     QAction* open=tiaozheng->addAction("打开");
+    open->setParent(tiaozheng);
     teach* te=new teach(this);
+    te->setParent(this);
     adjust* ad=new adjust(this);
+    ad->setParent(this);
     connect(study,&QAction::triggered,te,&teach::show);
     connect(open,&QAction::triggered,ad,&adjust::show);
 
@@ -95,6 +100,13 @@ void MainWindow::paintEvent(QPaintEvent *event)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete background;
+    delete b;
+    delete push;
+    delete btn;//开始
+    delete btn2;//退出
+    delete btn3;//选曲
+    delete btn4;//第二模式
 }
 //链接信号game界面
 
@@ -105,12 +117,12 @@ void MainWindow::connectGameWindow(game *music,choosemusic*c)
         emit music->renew();
         game*music3=new game(music->musicname,this);
         music3->setParent(this);
-        connectGameWindow(music3,c);
-        music3->show();
-        emit music3->showScene();
         QTimer::singleShot(600,music,[=](){
             music->deleteLater();
         });
+        connectGameWindow(music3,c);
+        music3->show();
+        emit music3->showScene();
     });
     connect(music->fanhui,&QPushButton::clicked,[=](){
         b->play();
@@ -149,12 +161,12 @@ void MainWindow::connectGameWindow(gametwo*music,choosemusic*c)
         emit music->renew();
         gametwo*music3=new gametwo(music->musicname,this);
         music3->setParent(this);
+
+            music->deleteLater();
+
         connectGameWindow(music3,c);
         music3->show();
         emit music3->showScene();
-        QTimer::singleShot(600,music,[=](){
-            music->deleteLater();
-        });
     });
     connect(music->fanhui,&QPushButton::clicked,[=](){
         b->play();
@@ -213,8 +225,6 @@ void MainWindow::connectMainWindow(choosemusic*c)
             c->show();
         });
     });
-
-
     connect(btn4,&QPushButton::clicked,[=](){
         gametwo* music1=new gametwo(":/夢幻.wav",this);
         music1->setParent(this);
@@ -234,7 +244,7 @@ void MainWindow::connectSonWindow(sonwindow*choose,QMainWindow*parent)
     choose->move(700,400);
     connect(choose->queren,&QPushButton::clicked,[=](){
         push->play();
-        QApplication::quit();
+        QApplication::quit();//程序自动销毁所有对象
     });
     connect(choose->quxiao,&QPushButton::clicked,[=](){
         push->play();
@@ -249,7 +259,6 @@ void MainWindow::connectSonWindow(sonwindow*choose,gameover*parent, game*music1)
 {
     //选择界面，按钮信号的处理
     choose->move(700,400);
-    choose->show();
     connect(choose->queren,&QPushButton::clicked,[=](){
         push->play();
         QApplication::quit();
@@ -260,13 +269,12 @@ void MainWindow::connectSonWindow(sonwindow*choose,gameover*parent, game*music1)
             choose->deleteLater();
         });
     });
+     choose->show();
 }
 void MainWindow::connectSonWindow(sonwindow*choose,gameover*parent, gametwo*music1)
 {
     //选择界面，按钮信号的处理
     choose->move(700,400);
-    choose->show();
-     emit OVER();
     connect(choose->queren,&QPushButton::clicked,[=](){
         push->play();
         QApplication::quit();
@@ -277,6 +285,7 @@ void MainWindow::connectSonWindow(sonwindow*choose,gameover*parent, gametwo*musi
             choose->deleteLater();
         });
     });
+    choose->show();
 }
 //选曲界面
 template <typename T>
@@ -298,7 +307,6 @@ void MainWindow::connectChooseWindow(choosemusic*c){
         QTimer::singleShot(500,musiccpy,[=](){
             musiccpy->show();
         });
-
         QTimer::singleShot(1000,c,[=](){
             c->hide();
         });
@@ -381,14 +389,12 @@ void MainWindow::connectGameOver(game*music1,gameover*over,choosemusic*c,int sco
     connect(over,&gameover::Restart,[=](){
         push->play();
         emit music1->renew();
+        over->deleteLater();
         game*music=new game(music1->musicname,this);
         connectGameWindow(music,c);
         music->show();
         emit music->showScene();
-        QTimer::singleShot(600,music1,[=](){
-            music1->deleteLater();
-        });
-        over->deleteLater();
+        music1->deleteLater();
     });
     connect(over,&gameover::TuiChu,[=](){
         push->play();
@@ -410,14 +416,12 @@ void MainWindow::connectGameOver(gametwo*music1,gameover*over,choosemusic*c,int 
     connect(over,&gameover::Restart,[=](){
         push->play();
         emit music1->renew();
+        over->deleteLater();
         gametwo*music=new gametwo(music1->musicname,this);
         connectGameWindow(music,c);
         music->show();
         emit music->showScene();
-        QTimer::singleShot(600,music1,[=](){
-            music1->deleteLater();
-        });
-        over->deleteLater();
+        music1->deleteLater();
     });
     connect(over,&gameover::TuiChu,[=](){
         push->play();

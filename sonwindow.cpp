@@ -22,3 +22,8 @@ sonwindow::sonwindow(QWidget *parent)
     a->setStyleSheet("font-family:'楷体';font-size:14px;color:rgb(120,146,98)");
     setWindowTitle("一个重要的选择");
 }
+sonwindow::~sonwindow()
+{
+    delete queren;
+    delete quxiao;
+}

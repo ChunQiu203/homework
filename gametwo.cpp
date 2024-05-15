@@ -209,6 +209,23 @@ void gametwo::generateDownObjecttwo()
             yinfu->flag = 1;
         }
     });
+    connect(this,&gametwo::pause,[=](){
+        if(num%2==0)
+        {
+            //线程
+            //QTimer不能跨线程启动和停止定时器
+            yinfu->self=yinfu->p->remainingTime();
+            QTimer::singleShot(100,[=](){
+                emit yinfu->p->Stop();
+                emit yinfu->timer->Stop();
+            });
+        }
+        else
+        {
+            emit yinfu->p->Start(yinfu->self);
+            emit yinfu->timer->Start(ad->xiaSpeed);
+        }
+    });
 }
 void gametwo::paintEvent(QPaintEvent *event)
 {
@@ -222,4 +239,12 @@ void gametwo::paintEvent(QPaintEvent *event)
 gametwo::~gametwo()
 {
     delete ui;
+    delete fanhui;
+    delete restart;
+    delete zanting;
+    delete music;
+    delete dian;
+    delete ba;
+    delete jieshu;
+    delete showtime;
 }

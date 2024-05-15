@@ -10,6 +10,12 @@ class basescene : public QMainWindow
 public:
     explicit basescene(QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *event);
+    virtual~basescene();
+    QMenuBar *menu;
+    QMenu* jiaoxue;
+    QMenu* tiaozheng;
+    QAction* study;
+    QAction* open;
     teach* te;
     adjust*ad;
 signals:

@@ -9,6 +9,7 @@ class sonwindow : public QDialog
 public:
     explicit sonwindow(QWidget *parent = nullptr);
     friend class MainWindow;
+    ~sonwindow();
 private:
     QPushButton* queren;
     QPushButton* quxiao;

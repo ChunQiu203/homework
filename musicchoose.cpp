@@ -25,3 +25,7 @@ musicchoose::musicchoose(QString normalimage,QString musicname)
     setIconSize(QSize(pix.width(),pix.height()));
 
 }
+musicchoose::~musicchoose()
+{
+    delete m;
+}

@@ -15,6 +15,7 @@ class game : public basescene
     Q_OBJECT
 public:
     game(QString musicname=":/music/Maozon - Stasis.mp3",QWidget*parent=nullptr);
+    ~game();
     friend class MainWindow;
     friend class gametwo;
     template <typename T>void generateDownObject();

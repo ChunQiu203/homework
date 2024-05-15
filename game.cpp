@@ -125,12 +125,6 @@ game::game(QString musicname,QWidget*parent)
 }
 template<typename T>
 void game::generateDownObject(){
-    QSoundEffect* dian=new QSoundEffect(this);
-    dian->setSource(QUrl::fromLocalFile(":/音符.wav"));
-    dian->setVolume(1.0f);
-    QSoundEffect* ba=new QSoundEffect(this);
-    ba->setSource(QUrl::fromLocalFile(":/音符miss.wav"));
-    ba->setVolume(1.0f);
 
     T* yinfu = new T(this,ad->xiaSpeed,ad->chuSpeed,ad->TimeD);
     yinfu->setParent(this);
@@ -215,8 +209,6 @@ void game::generateDownObject(){
     });
     connect(this,&game::renew,[=](){
         QTimer::singleShot(1000,music,[=](){
-            yinfu->timer->deleteLater();
-            yinfu->p->deleteLater();
             yinfu->deleteLater();
         });
     });
@@ -238,3 +230,15 @@ void game::generateDownObject(){
           }
     });
 }
+game::~game()
+{
+    delete fanhui;
+    delete restart;
+    delete zanting;
+    delete music;
+    delete dian;
+    delete ba;
+    delete jieshu;
+    delete showtime;//音符出现时钟
+    delete score;
+ }
